@@ -1,0 +1,22 @@
+import { createFileRoute } from '@tanstack/react-router'
+import { getJokes } from '../serverActions/jokesActions';
+import { JokesList } from '../components/JokesList';
+
+
+export const Route = createFileRoute('/')({
+  loader: async () => {
+    return getJokes()
+  },
+  component: App
+})
+
+function App() {
+  const jokes = Route.useLoaderData() || []
+
+  return (
+    <div className="max-w-2xl mx-auto py-12 px-4 space-y-6">
+      <h1 className="text-4xl font-bold text-center mb-10">DevJokes</h1>
+      <JokesList jokes={jokes} />
+    </div>
+  )
+}
